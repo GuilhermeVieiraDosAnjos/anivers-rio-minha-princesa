@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1712">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Um Ano de Nós</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Marcellus&display=swap">
+<style>
+/* Layout: santuário noturno verde-esmeralda; seções em história (fotos de um lado, texto do outro); arcos com contorno dourado e luz percorrendo; carrossel no celular */
+@property --a{syntax:"<angle>";initial-value:0deg;inherits:false}
+:root{
+  color-scheme: dark;
+  --bg:#0b1712;
+  --bg-2:#13261c;
+  --ink:#efe4cc;
+  --ink-soft:#bdb79f;
+  --gold:#c9a86a;
+  --gold-hi:#f0d9a4;
+  --ember:#e8a27c;
+  --line:rgba(201,168,106,.42);
+  --f-display:"Italiana", "Didot", "Bodoni 72", Georgia, serif;
+  --f-body:"Cormorant Garamond", Garamond, Georgia, serif;
+  --f-label:"Marcellus", "Trajan Pro", Georgia, serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-weight:400;font-size:19px;line-height:1.6;overflow-x:hidden}
+img{max-width:100%}
+#sky{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:block}
+.grain{position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.06;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.page{position:relative;z-index:2}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+
+h1,h2,h3{font-family:var(--f-display);font-weight:400;margin:0;text-wrap:balance;letter-spacing:.01em}
+.label{font-family:var(--f-label);text-transform:uppercase;letter-spacing:.32em;font-size:11.5px;color:var(--gold)}
+.vline{width:1px;height:70px;margin:0 auto;background:linear-gradient(transparent,var(--gold));position:relative;overflow:hidden}
+.vline::after{content:"";position:absolute;left:-1px;width:3px;height:18px;background:var(--gold-hi);filter:blur(1px);animation:drip 3.2s ease-in infinite}
+@keyframes drip{from{top:-20px}to{top:100%}}
+.btn{display:inline-flex;align-items:center;gap:.7em;font-family:var(--f-label);text-transform:uppercase;letter-spacing:.24em;font-size:11.5px;color:var(--ink);background:rgba(16,34,26,.6);border:1px solid var(--line);border-radius:999px;padding:12px 26px;cursor:pointer;text-decoration:none;transition:background .4s,border-color .4s}
+.btn:hover{background:rgba(201,168,106,.14);border-color:var(--gold)}
+.btn:focus-visible{outline:2px solid var(--gold-hi);outline-offset:4px}
+@keyframes spin{to{transform:rotate(1turn)}}
+
+/* ---------- arco com contorno e luz percorrendo ---------- */
+.arch{position:relative;border-radius:999px 999px 10px 10px;--gap:10px}
+.arch.oval{border-radius:50%}
+.arch::before,.arch::after{content:"";position:absolute;inset:calc(var(--gap) * -1);border-radius:inherit;pointer-events:none}
+.arch::before{border:1px solid var(--line)}
+.arch::after{padding:1.5px;background:conic-gradient(from var(--a),transparent 0 78%,var(--gold-hi) 90%,transparent 96%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
+  animation:orbit 7s linear infinite;animation-delay:var(--d,0s);filter:drop-shadow(0 0 4px rgba(240,217,164,.8))}
+@keyframes orbit{to{--a:360deg}}
+.arch .clip{border-radius:inherit;overflow:hidden;position:relative;box-shadow:0 30px 60px rgba(0,0,0,.55)}
+.float{animation:float 8s ease-in-out infinite;animation-delay:var(--d,0s)}
+@keyframes float{50%{transform:translateY(-10px)}}
+.photo{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;animation:breath 20s ease-in-out infinite alternate}
+@keyframes breath{to{transform:scale(1.08)}}
+
+/* ---------- topo / hero ---------- */
+.top{display:flex;justify-content:space-between;align-items:center;padding-block:18px;font-family:var(--f-label);letter-spacing:.28em;font-size:11px;color:var(--ink-soft)}
+.mono{width:54px;height:54px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;font-family:var(--f-display);font-size:28px;color:var(--gold-hi);position:relative}
+.mono::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:1px dashed rgba(201,168,106,.3);animation:spin 30s linear infinite}
+.hero{position:relative;text-align:center;padding-block:10px 100px;overflow:hidden}
+#fronds{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;display:block}
+.hero .inner{position:relative}
+.hero .kicker{display:block;font-family:var(--f-body);font-style:italic;font-weight:300;font-size:clamp(28px,4.4vw,48px);color:var(--ember);margin-top:24px;line-height:1.1;animation:float 6s ease-in-out infinite}
+.hero h1{font-size:clamp(56px,11vw,140px);line-height:1;color:var(--ink);margin-top:6px;text-shadow:0 0 40px rgba(240,217,164,.25)}
+.hero h1 .l{display:inline-block;animation:glowl 6s ease-in-out infinite;animation-delay:calc(var(--i) * .25s)}
+@keyframes glowl{50%{color:var(--gold-hi);text-shadow:0 0 30px rgba(240,217,164,.55)}}
+.dates{display:flex;justify-content:center;align-items:stretch;flex-wrap:wrap;gap:clamp(18px,4vw,48px);margin:30px 0 36px}
+.dates div{display:grid;gap:4px}
+.dates b{font-family:var(--f-display);font-weight:400;font-size:clamp(26px,3.4vw,36px);color:var(--gold-hi);letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.dates small{font-family:var(--f-label);letter-spacing:.3em;font-size:10.5px;text-transform:uppercase;color:var(--ink-soft)}
+.dates i{width:1px;background:linear-gradient(transparent,var(--gold),transparent)}
+.hero .lead{font-size:clamp(20px,2.2vw,24px);color:var(--ink-soft);max-width:46ch;margin:0 auto 18px;font-style:italic}
+.hero .lead.strong{color:var(--ink);font-style:normal}
+.hero .btn{margin-top:18px}
+
+/* ---------- seções em história ---------- */
+.story{padding-block:clamp(60px,9vw,120px)}
+.story-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(36px,6vw,90px);align-items:start}
+.story.rev .story-media{order:2}
+.story-media{min-width:0;position:sticky;top:calc(env(safe-area-inset-top,0px) + 40px)}
+.story-copy{min-width:0}
+.story-copy .label{display:block;margin-bottom:14px}
+.story-copy h2{font-size:clamp(44px,6vw,78px);line-height:1;color:var(--gold-hi)}
+.story-copy p{max-width:54ch;color:var(--ink-soft)}
+.story-copy .pull{font-style:italic;font-size:clamp(22px,2.4vw,27px);line-height:1.35;color:var(--ink);max-width:32ch;margin-block:22px}
+.solo{padding:12px}
+.solo .photo{aspect-ratio:4/5}
+.letter .solo .arch{border-radius:50% 50% 14px 14px / 30% 30% 14px 14px}
+.letter .solo .photo{aspect-ratio:4/3;object-position:50% 50%}
+.soul{position:relative;color:var(--gold-hi);font-style:italic;cursor:pointer;background:linear-gradient(90deg,var(--gold),var(--ember),var(--gold)) 0 100%/200% 1px no-repeat;animation:underline 3s linear infinite;outline:none}
+@keyframes underline{to{background-position:200% 100%}}
+.soul::before{content:"♡";position:absolute;right:-1.1em;top:-.7em;font-size:.8em;color:var(--ember);animation:float 2.4s ease-in-out infinite}
+.soul-tip{position:absolute;left:50%;bottom:calc(100% + 26px);width:180px;transform:translateX(-50%) translateY(14px) scale(.9);opacity:0;pointer-events:none;transition:opacity .4s,transform .5s cubic-bezier(.2,1.4,.4,1);z-index:10;display:block}
+.soul-tip .arch{display:block;--gap:7px}
+.soul-tip .clip{display:block}
+.soul:hover .soul-tip,.soul:focus .soul-tip{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
+
+/* divisor */
+.divider{display:flex;align-items:center;gap:18px;padding-block:20px}
+.divider .rule{flex:1;height:1px;background:linear-gradient(90deg,var(--line),rgba(201,168,106,.1))}
+.sunburst{flex:none;animation:spin 60s linear infinite}
+.sec-head{text-align:center;margin-bottom:clamp(30px,5vw,60px)}
+.sec-head h2{font-size:clamp(40px,6vw,74px);line-height:1.05;margin-top:12px}
+.sec-head p{font-style:italic;color:var(--ink-soft);max-width:46ch;margin:14px auto 0}
+
+/* colagens (desktop) */
+.trio{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));align-items:start}
+.trio figure{margin:0;padding:12px;min-width:0;position:relative}
+.trio.n3 figure:nth-child(1){grid-column:1/8;grid-row:1/3;z-index:1}
+.trio.n3 figure:nth-child(2){grid-column:8/13;grid-row:1;margin-top:-10px;z-index:2}
+.trio.n3 figure:nth-child(3){grid-column:7/12;grid-row:2;margin-top:-40px;z-index:3}
+.trio.n4{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:8px}
+.trio.n4 figure:nth-child(even){margin-top:70px}
+.trio.n4 figure:nth-child(3){margin-top:-50px}
+.trio.n4 figure:nth-child(4){margin-top:20px}
+.trio figure:hover{z-index:5}
+.car-ctl{display:none}
+
+/* ---------- já descobri ---------- */
+.fun{position:relative;padding-block:100px 110px;overflow:hidden;background:
+  radial-gradient(ellipse at 50% 0%,rgba(232,162,124,.16),transparent 55%),
+  linear-gradient(180deg,var(--bg) 0%,var(--bg-2) 12%,var(--bg-2) 88%,var(--bg) 100%)}
+.fun .sec-head h2{font-family:var(--f-body);font-style:italic;font-weight:300;font-size:clamp(56px,10vw,128px);line-height:.95;color:var(--ink)}
+.fun .sec-head h2 em{display:inline-block;color:var(--ember);font-style:italic;animation:wiggle 2.6s ease-in-out infinite;transform-origin:50% 80%}
+@keyframes wiggle{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg) scale(1.06)}}
+.cases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(26px,3.5vw,46px)}
+.case{min-width:0;text-align:center;display:grid;justify-items:center;align-content:start;gap:14px;position:relative}
+.case:nth-child(2){margin-top:50px}
+.case .window{width:100%;--gap:9px;--d:-2s}
+.case:nth-child(2) .window{--d:-4s}.case:nth-child(3) .window{--d:-6s}
+.case video{display:block;width:100%;aspect-ratio:9/14;object-fit:cover;background:#060d0a}
+.case .tag{margin-top:16px}
+.verdict{font-family:var(--f-label);letter-spacing:.2em;font-size:11px;text-transform:uppercase;color:var(--bg);background:var(--ember);padding:6px 14px;border-radius:999px;animation:bounce 2.4s ease-in-out infinite;animation-delay:var(--d,0s)}
+@keyframes bounce{0%,100%{transform:translateY(0)}20%{transform:translateY(-6px) rotate(-2deg)}35%{transform:translateY(0)}}
+.seal{position:absolute;top:-22px;right:-14px;width:104px;height:104px;z-index:3;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}
+.seal .ring{animation:spin 14s linear infinite;transform-origin:50% 50%}
+.seal text{font-family:var(--f-label);font-size:10.5px;letter-spacing:.2em;fill:var(--bg);text-transform:uppercase}
+.seal .core{animation:thump 2.2s ease-in-out infinite;transform-origin:50% 50%}
+@keyframes thump{0%,100%{transform:scale(1)}12%{transform:scale(1.15)}24%{transform:scale(1)}}
+.tally{margin-top:70px;text-align:center;font-style:italic;font-size:clamp(20px,2.4vw,26px);color:var(--ink-soft)}
+.tally b{font-family:var(--f-display);font-style:normal;font-weight:400;font-size:1.6em;color:var(--ember);font-variant-numeric:tabular-nums;vertical-align:-.1em;margin:0 .15em}
+
+/* ---------- aniversário ---------- */
+.bday{text-align:center;padding-block:100px 80px}
+.candles{display:flex;justify-content:center;gap:22px;margin:30px 0 34px}
+.candle{width:12px;height:64px;border-radius:2px;background:linear-gradient(90deg,#d8ccb0,#f7efdb 45%,#bfb196);position:relative}
+.candle::before{content:"";position:absolute;left:50%;top:-28px;width:14px;height:26px;margin-left:-7px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:radial-gradient(ellipse at 50% 72%,#fff 0 16%,#ffd99a 34%,#ef9a62 66%,transparent 70%);filter:drop-shadow(0 0 14px rgba(240,180,110,.95));animation:flick 1.3s ease-in-out infinite alternate;transform-origin:50% 100%}
+.candle::after{content:"";position:absolute;left:50%;top:-60px;width:120px;height:120px;margin-left:-60px;border-radius:50%;background:radial-gradient(circle,rgba(240,170,110,.18),transparent 65%);animation:flick 2s ease-in-out infinite alternate}
+.candle:nth-child(2)::before{animation-delay:-.5s}.candle:nth-child(3)::before{animation-delay:-.9s}
+@keyframes flick{0%{transform:scale(1) rotate(-3deg)}50%{transform:scale(1.07,.94) rotate(2deg)}100%{transform:scale(.95,1.05) rotate(-1deg)}}
+.bday h2{font-size:clamp(46px,8.5vw,112px);line-height:1;color:var(--gold-hi);text-shadow:0 0 50px rgba(240,190,120,.3)}
+.bday .date{font-family:var(--f-label);letter-spacing:.5em;color:var(--ink-soft);font-size:13px;margin:18px 0 30px}
+.bday p{font-size:clamp(20px,2.2vw,24px);color:var(--ink-soft);max-width:48ch;margin:0 auto 22px}
+.bday .sign{font-family:var(--f-body);font-style:italic;font-size:clamp(24px,3vw,32px);color:var(--ember);margin-top:40px;line-height:1.3}
+.bday .sign span{display:block;font-family:var(--f-label);font-style:normal;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+footer{position:relative;z-index:2;text-align:center;padding-block:20px 50px;font-family:var(--f-label);letter-spacing:.3em;font-size:10.5px;text-transform:uppercase;color:var(--ink-soft)}
+
+/* ---------- celular: coluna única + carrossel ---------- */
+@media (max-width:820px){
+  .story-grid{grid-template-columns:1fr;gap:28px}
+  .story.rev .story-media{order:0}
+  .story-media{position:relative;top:0}
+  .letter .story-media{max-width:420px;width:100%;justify-self:center}
+  .story-copy{text-align:left}
+  .story-copy h2{text-align:center}
+  .story-copy .label{text-align:center}
+  .cases{grid-template-columns:1fr;max-width:380px;margin:0 auto}
+  .case:nth-child(2){margin-top:0}
+  .divider .label{display:none}
+  .trio,.trio.n4{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;gap:0;
+    margin-inline:calc(-1 * max(16px, env(safe-area-inset-left, 0px)));padding:26px 0 18px;perspective:900px;
+    -webkit-mask:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+  .trio::-webkit-scrollbar{display:none}
+  .trio::before,.trio::after{content:"";flex:0 0 13%}
+  .trio figure{flex:0 0 74%;margin:0!important;scroll-snap-align:center;scroll-snap-stop:always;padding:14px 10px;
+    transform:scale(.84) rotateY(var(--ry,0deg));opacity:.45;filter:saturate(.6) blur(.5px);transition:transform .6s cubic-bezier(.2,.8,.2,1),opacity .6s,filter .6s}
+  .trio figure.before{--ry:18deg}
+  .trio figure.after{--ry:-18deg}
+  .trio figure.is-active{transform:scale(1);opacity:1;filter:none}
+  .car-ctl{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:6px}
+  .car-btn{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:rgba(16,34,26,.7);color:var(--gold-hi);font:inherit;font-size:18px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:background .3s,transform .2s}
+  .car-btn:active{transform:scale(.9)}
+  .car-btn:focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px}
+  .car-dots{display:flex;gap:8px;align-items:center}
+  .car-dot{position:relative;width:8px;height:8px;border-radius:99px;border:0;padding:0;background:rgba(201,168,106,.35);cursor:pointer;overflow:hidden;transition:width .45s cubic-bezier(.2,.8,.2,1),background .3s}
+  .car-dot[aria-current="true"]{width:38px;background:rgba(201,168,106,.25)}
+  .car-dot[aria-current="true"]::after{content:"";position:absolute;inset:0;background:var(--gold-hi);transform-origin:left;transform:scaleX(0);animation:fill 4.5s linear forwards}
+  .car-ctl.paused .car-dot[aria-current="true"]::after{animation:none;transform:scaleX(1)}
+  @keyframes fill{to{transform:scaleX(1)}}
+  .car-count{font-family:var(--f-label);letter-spacing:.2em;font-size:10.5px;color:var(--ink-soft);min-width:38px;text-align:center}
+}
+@media (max-width:420px){ body{font-size:18px} .seal{width:86px;height:86px;right:-6px} }
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important}}
+</style>
+
+</head>
+<body>
+<canvas id="sky" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="page">
+  <!-- INÍCIO -->
+  <header class="hero">
+    <canvas id="fronds" aria-hidden="true"></canvas>
+    <div class="wrap inner">
+      <div class="top"><span>09 · 11</span><div class="mono" aria-hidden="true">♡</div><span>10 · 11</span></div>
+      <div class="vline" aria-hidden="true"></div>
+      <span class="kicker">Feliz aniversário, meu amor</span>
+      <h1><span class="l" style="--i:0">U</span><span class="l" style="--i:1">m</span> <span class="l" style="--i:2">a</span><span class="l" style="--i:3">n</span><span class="l" style="--i:4">o</span> <span class="l" style="--i:5">d</span><span class="l" style="--i:6">e</span> <span class="l" style="--i:7">n</span><span class="l" style="--i:8">ó</span><span class="l" style="--i:9">s</span></h1>
+      <div class="dates">
+        <div><b>09 · 11 · 2025</b><small>o dia em que te conheci</small></div>
+        <i aria-hidden="true"></i>
+        <div><b>10 · 11 · 2026</b><small>o seu dia</small></div>
+      </div>
+      <p class="lead">Oi, minha princesa. Para mais uma data especial pra nós, eu faço mais um presente especial pra você, que é o presente mais especial que eu já ganhei!</p>
+      <p class="lead strong">Feliz aniversário, meu amor. Parabéns por ser essa mulher espetacular que eu agradeço todos os dias por ter conhecido há um ano.</p>
+      <a class="btn" href="#carta">entrar ✦</a>
+    </div>
+  </header>
+
+  <!-- ISTO É SOBRE NÓS -->
+  <section class="story letter" id="carta"><div class="wrap story-grid">
+    <div class="story-media"><div class="solo float" style="--d:-1s"><div class="arch"><div class="clip"><img class="photo" src="img/carta.jpg" alt="Nós com os amigos no bar"></div></div></div></div>
+    <div class="story-copy">
+      <span class="label">para você</span>
+      <h2>Isto é sobre nós</h2>
+      <p class="pull">Amor, 1 ano que eu te conheci e o ano mais especial da minha vida!</p>
+      <p>Um convite muito despretensioso mudou minha vida, e até hoje fico de cara como as coisas podem mudar com uma simples palavra. No dia 9/11 eu conheci o amor da minha vida (você me deu um fora, mas tá tudo bem) e desde então a gente vem se vendo sempre que pode. Te amo, amor, obrigado pelo melhor ano da minha vida até agora. Até porque eu tenho certeza que virão mais anos especiais para nós.</p>
+      <p>Nesse ano em que eu encontrei você, tudo mudou. Eu vi uma mulher que já era espetacular se tornar cada vez mais forte, abrir seus horizontes e ver que pode sempre mais. Porque essa mulher é a minha mulher, e ela é foda.</p>
+      <p>Vi a mulher mais linda que eu conheço se tornar cada vez mais bonita e mais gostosa. Eu sou louco em você, apaixonado em você. Você é minha <span class="soul" tabindex="0">alma gema<span class="soul-tip" aria-hidden="true"><span class="arch"><span class="clip"><img class="photo" src="img/alma.jpg" alt=""></span></span></span></span>.</p>
+    </div>
+  </div></section>
+
+  <div class="wrap divider"><span class="label">nossas memórias</span><span class="rule"></span><svg class="sunburst" data-rays="48" width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"></svg></div>
+
+  <!-- MEMÓRIA 1: A GENTE -->
+  <section class="story mem rev"><div class="wrap story-grid">
+    <div class="story-media">
+      <div class="trio n4" data-carousel>
+        <figure><div class="arch float" style="--d:-1s"><div class="clip"><img class="photo" src="img/p09.jpg" alt="Nós dois fazendo careta" loading="lazy"></div></div></figure>
+        <figure><div class="arch oval float" style="--d:-3s"><div class="clip"><img class="photo" src="img/p10.jpg" alt="Selfie com a menina, todos fazendo biquinho" loading="lazy"></div></div></figure>
+        <figure><div class="arch oval float" style="--d:-5s"><div class="clip"><img class="photo" src="img/p08.jpg" alt="Nós dois no sofá branco" loading="lazy"></div></div></figure>
+        <figure><div class="arch float" style="--d:-2s"><div class="clip"><img class="photo" src="img/p13.jpg" alt="Nós dois na piscina à noite" loading="lazy"></div></div></figure>
+      </div>
+    </div>
+    <div class="story-copy">
+      <span class="label">memória 01</span>
+      <h2>A gente</h2>
+      <p class="pull">Você é a primeira coisa que eu penso quando acordo e a última antes de dormir.</p>
+      <p>Durante esse ano com você passamos por muitas coisas, muito da nossa vida mudou, definitivamente para melhor. Quem diria, naquele dia no Responsa, que a gente, um ano depois, estaria combinando de morar junto, ter filhos, criar nossa empresa e milhares de outros planos que temos juntos. Desde esse dia você se tornou uma parte muito importante da minha vida. Você é a primeira coisa que eu penso quando eu acordo e a última coisa que eu penso antes de dormir. Você é minha princesa, minha deusa, minha majestade.</p>
+      <p>Durante esse tempo juntos eu só agradeço por todas as nossas memórias, nossos momentos de parceria, nossas conversas, nossa capacidade de conversar um com o outro e nos resolvermos, a parceria que desenvolvemos, o quanto você conseguiu se enturmar na minha família e como isso é bom pra você. Amo o jeito que você e as meninas são. O quanto eu consigo me abrir com você, como você se tornou minha melhor amiga: tudo que acontece durante o dia eu tenho vontade de falar com você. Você é a minha confidente, meu lar. Obrigado, meu amor! Te amo.</p>
+    </div>
+  </div></section>
+
+  <!-- MEMÓRIA 2: MINHA PRINCESA -->
+  <section class="story mem"><div class="wrap story-grid">
+    <div class="story-media">
+      <div class="trio n3" data-carousel>
+        <figure><div class="arch float" style="--d:-2s"><div class="clip"><img class="photo" src="img/p16.jpg" alt="Você na praia ao entardecer" loading="lazy"></div></div></figure>
+        <figure><div class="arch oval float" style="--d:-4s"><div class="clip"><img class="photo" src="img/p15.jpg" alt="Você de blusa verde" loading="lazy"></div></div></figure>
+        <figure><div class="arch float" style="--d:-6s"><div class="clip"><img class="photo" src="img/p04.jpg" alt="Você de blusa laranja" loading="lazy"></div></div></figure>
+      </div>
+    </div>
+    <div class="story-copy">
+      <span class="label">memória 02</span>
+      <h2>Minha princesa</h2>
+      <p class="pull">Queria que você se enxergasse como eu te enxergo.</p>
+      <p>Amor, eu lembro como você era quando eu te conheci, e ver a mulher que você vem se tornando, os horizontes que está abrindo, o quanto você está percebendo o tamanho do seu potencial, é muito importante para mim. Queria que você se enxergasse como eu te enxergo: essa mulher forte, extremamente esforçada, inteligente pra caralho, de um coração impressionantemente bom. Mesmo que o mundo te teste bastante, eu vejo que você sempre tenta enxergar o bem das pessoas e tenta fazer o bem sempre.</p>
+      <p>Eu tenho um orgulho enorme de você, do quanto você mudou. De como, no começo do ano, estávamos conversando sobre o problema de morar com outras pessoas e você foi lá e colocou a cara para morar sozinha novamente, em um lugar onde não conhece ninguém. O tanto de orgulho que eu tenho da mulher que você é, e do quanto aguentou no seu último emprego: mesmo com todos eles sem te ajudar, continuou fazendo sempre um trabalho de excelência. E depois, ao sair desse trabalho, encontrou um novo desafio, e nesse desafio continua sendo a pessoa perfeccionista e com um trabalho excepcional.</p>
+    </div>
+  </div></section>
+
+  <!-- MEMÓRIA 3: NOSSO FUTURO -->
+  <section class="story mem rev"><div class="wrap story-grid">
+    <div class="story-media">
+      <div class="trio n3" data-carousel>
+        <figure><div class="arch float" style="--d:-3s"><div class="clip"><img class="photo" src="img/p01.jpg" alt="Nós dois no sofá, você de óculos rindo" loading="lazy"></div></div></figure>
+        <figure><div class="arch oval float" style="--d:-5s"><div class="clip"><img class="photo" src="img/rede.jpg?v=2" alt="Nós na rede" loading="lazy"></div></div></figure>
+        <figure><div class="arch float" style="--d:-1s"><div class="clip"><img class="photo" src="img/p03.jpg" alt="Nós dois com o gato" loading="lazy"></div></div></figure>
+      </div>
+    </div>
+    <div class="story-copy">
+      <span class="label">memória 03</span>
+      <h2>Nosso futuro</h2>
+      <p class="pull">Que esse seja só mais um de mais 70 aniversários juntos.</p>
+      <p>Minha princesa, nessa seção eu venho te dizer brevemente que você é a pessoa certa e a pessoa que eu escolhi. Não acho nem que escolhi: eu recebi esse presente divino que é você, e não poderia ser diferente. Amor, eu quero muito construir um futuro com você, morar com você, ter nossa família, viajar o mundo, eu e você juntos vendo como o mundo é bonito, e com certeza ele vai estar mais bonito com você ao meu lado. Eu te amo muito e espero que esse seja somente mais um de mais 70 aniversários juntos.</p>
+    </div>
+  </div></section>
+
+  <!-- JÁ DESCOBRI -->
+  <section class="fun"><div class="wrap">
+    <div class="sec-head">
+      <span class="label">arquivo confidencial</span>
+      <h2>“Já <em>descobri!</em>”</h2>
+      <p>As vezes em que você jurou saber qual era o presente.</p>
+    </div>
+    <div class="cases">
+      <article class="case" style="--d:0s">
+        <div class="window arch float"><div class="clip"><video src="vid/v2.mp4" poster="vid/v2.jpg" controls playsinline preload="metadata"></video></div></div>
+        <svg class="seal" viewBox="0 0 100 100" aria-hidden="true"><g class="core"><circle cx="50" cy="50" r="48" fill="#c9a86a"/><circle cx="50" cy="50" r="30" fill="#0b1712"/><text x="50" y="55" text-anchor="middle" style="fill:#f0d9a4;font-family:Italiana,serif;font-size:18px;letter-spacing:0">nº 1</text></g><g class="ring"><path id="cp1" d="M50,50 m-39,0 a39,39 0 1,1 78,0 a39,39 0 1,1 -78,0" fill="none"/><text><textPath href="#cp1">não descobriu ✦ não descobriu ✦</textPath></text></g></svg>
+        <div class="label tag">caso nº 01</div>
+        <span class="verdict">chutou errado</span>
+      </article>
+      <article class="case" style="--d:-.8s">
+        <div class="window arch float"><div class="clip"><video src="vid/v1.mp4" poster="vid/v1.jpg" controls playsinline preload="metadata"></video></div></div>
+        <svg class="seal" viewBox="0 0 100 100" aria-hidden="true"><g class="core"><circle cx="50" cy="50" r="48" fill="#c9a86a"/><circle cx="50" cy="50" r="30" fill="#0b1712"/><text x="50" y="55" text-anchor="middle" style="fill:#f0d9a4;font-family:Italiana,serif;font-size:18px;letter-spacing:0">nº 2</text></g><g class="ring"><path id="cp2" d="M50,50 m-39,0 a39,39 0 1,1 78,0 a39,39 0 1,1 -78,0" fill="none"/><text><textPath href="#cp2">nem perto ✦ nem perto ✦ nem perto ✦</textPath></text></g></svg>
+        <div class="label tag">caso nº 02</div>
+        <span class="verdict">blefe confirmado</span>
+      </article>
+      <article class="case" style="--d:-1.6s">
+        <div class="window arch float"><div class="clip"><video src="vid/v3.mp4" poster="vid/v3.jpg" controls playsinline preload="metadata"></video></div></div>
+        <svg class="seal" viewBox="0 0 100 100" aria-hidden="true"><g class="core"><circle cx="50" cy="50" r="48" fill="#c9a86a"/><circle cx="50" cy="50" r="30" fill="#0b1712"/><text x="50" y="55" text-anchor="middle" style="fill:#f0d9a4;font-family:Italiana,serif;font-size:18px;letter-spacing:0">nº 3</text></g><g class="ring"><path id="cp3" d="M50,50 m-39,0 a39,39 0 1,1 78,0 a39,39 0 1,1 -78,0" fill="none"/><text><textPath href="#cp3">tenta de novo ✦ tenta de novo ✦</textPath></text></g></svg>
+        <div class="label tag">caso nº 03</div>
+        <span class="verdict">continua sem saber</span>
+      </article>
+    </div>
+    <p class="tally">Acertos: <b>0</b> · Tentativas: <b>3</b></p>
+  </div></section>
+
+  <!-- FELIZ ANIVERSÁRIO -->
+  <section class="bday" id="bday"><div class="wrap">
+    <div class="vline" aria-hidden="true"></div>
+    <div class="candles" aria-hidden="true"><span class="candle"></span><span class="candle"></span><span class="candle"></span></div>
+    <h2>Feliz aniversário, minha princesa!</h2>
+    <div class="date">10 · 11 · 20 anos</div>
+    <p>Espero que tenha gostado desse presente e que isso se torne uma tradição entre a gente. Você é minha deusa, maravilhosa, gostosa, linda, perfeita. Parabéns pelos seus 20 anos e pela mulher que você é e vem se tornando.</p>
+    <p class="sign"><span>te amo</span>do seu namorado e futuro marido</p>
+  </div></section>
+
+  <footer>feito à mão, com amor · 09.11.2025 → sempre</footer>
+</div>
+
+<script>
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const dpr = Math.min(devicePixelRatio||1, 2);
+
+  /* sol de linhas */
+  document.querySelectorAll('svg[data-rays]').forEach(svg => {
+    const n = +svg.dataset.rays, c = svg.viewBox.baseVal.width/2, inner = 0.18;
+    let s = '';
+    for (let i=0;i<n;i++){ const a = i/n*Math.PI*2, long = i%2===0, r1 = c*inner, r2 = c*(long?0.98:0.88);
+      s += `<line x1="${c+Math.cos(a)*r1}" y1="${c+Math.sin(a)*r1}" x2="${c+Math.cos(a)*r2}" y2="${c+Math.sin(a)*r2}" stroke="#c9a86a" stroke-width="${long?.6:.35}" stroke-opacity="${long?.55:.3}"/>`; }
+    s += `<circle cx="${c}" cy="${c}" r="${c*inner}" fill="none" stroke="#c9a86a" stroke-opacity=".6" stroke-width=".7"/>`;
+    svg.insertAdjacentHTML('beforeend', s);
+  });
+
+  /* céu: névoa, vaga-lumes e explosões */
+  const cv = document.getElementById('sky'), ctx = cv.getContext('2d'); let W, H;
+  function size(){ W=innerWidth; H=innerHeight; cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); }
+  size(); addEventListener('resize', size);
+  const fog = Array.from({length:6},(_,i)=>({x:Math.random(),y:Math.random(),r:.35+Math.random()*.35,sp:.00004+Math.random()*.00006,ph:i*1.3,hue:i%3===0?'232,162,124':'60,120,90'}));
+  const flies = Array.from({length:46},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:.8+Math.random()*1.8,p:Math.random()*10}));
+  const bursts = [];
+  const burst = (x,y,n=120) => { for(let i=0;i<n;i++){ const a=Math.random()*Math.PI*2, v=2+Math.random()*7; bursts.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-2,l:1,r:1+Math.random()*2.4,leaf:Math.random()<.35,rot:Math.random()*6}); } };
+  let t = 0;
+  function draw(){
+    t++; ctx.clearRect(0,0,W,H);
+    for (const f of fog){ const x=(f.x+Math.sin(t*f.sp*60+f.ph)*.12)*W, y=(f.y+Math.cos(t*f.sp*45+f.ph)*.1)*H, r=f.r*Math.max(W,H);
+      const g=ctx.createRadialGradient(x,y,0,x,y,r); g.addColorStop(0,`rgba(${f.hue},.09)`); g.addColorStop(1,`rgba(${f.hue},0)`); ctx.fillStyle=g; ctx.fillRect(0,0,W,H); }
+    for (const f of flies){ f.vx+=(Math.random()-.5)*.02; f.vy+=(Math.random()-.5)*.02; f.vx*=.99; f.vy*=.99; f.x+=f.vx; f.y+=f.vy;
+      if(f.x<-10)f.x=W+10; if(f.x>W+10)f.x=-10; if(f.y<-10)f.y=H+10; if(f.y>H+10)f.y=-10;
+      const a=.25+.75*Math.max(0,Math.sin(t/40+f.p)); ctx.beginPath(); ctx.arc(f.x,f.y,f.r,0,7);
+      ctx.fillStyle=`rgba(245,215,150,${a})`; ctx.shadowColor='rgba(245,200,120,.9)'; ctx.shadowBlur=10*a; ctx.fill(); }
+    ctx.shadowBlur=0;
+    for (let i=bursts.length-1;i>=0;i--){ const b=bursts[i]; b.vy+=.09; b.vx*=.985; b.x+=b.vx; b.y+=b.vy; b.l-=.008; b.rot+=.1;
+      if(b.l<=0){bursts.splice(i,1);continue}
+      ctx.save(); ctx.translate(b.x,b.y); ctx.rotate(b.rot); ctx.globalAlpha=b.l;
+      if(b.leaf){ ctx.beginPath(); ctx.ellipse(0,0,b.r*3,b.r*1.3,0,0,7); ctx.fillStyle='#e8a27c'; ctx.fill(); }
+      else { ctx.beginPath(); ctx.arc(0,0,b.r,0,7); ctx.fillStyle='#f0d9a4'; ctx.shadowColor='#f0d9a4'; ctx.shadowBlur=8; ctx.fill(); }
+      ctx.restore(); }
+    requestAnimationFrame(draw);
+  }
+  if (!reduce) requestAnimationFrame(draw);
+
+  /* folhagem balançando no topo */
+  const fc = document.getElementById('fronds'), fx = fc.getContext('2d'); let FW, FH;
+  function fsize(){ const r=fc.getBoundingClientRect(); FW=r.width; FH=r.height; fc.width=FW*dpr; fc.height=FH*dpr; fx.setTransform(dpr,0,0,dpr,0,0); }
+  fsize(); addEventListener('resize', fsize);
+  let sd=11; const rnd=()=>(sd=(sd*16807)%2147483647)/2147483647;
+  const fronds=[];
+  for(let i=0;i<14;i++){ const left=i%2===0; fronds.push({left, x:left? rnd()*.22 : 1-rnd()*.22, y:-.05+rnd()*.12, ang:(left?.5:Math.PI-.5)+(rnd()-.5)*.9, len:.28+rnd()*.32, ph:rnd()*6, shade:rnd()}); }
+  function drawFrond(f,tt){
+    const L=f.len*Math.min(FW*1.2,FH*1.4), sway=Math.sin(tt/110+f.ph)*.06;
+    const x0=f.x*FW, y0=f.y*FH, a=f.ang+sway, bend=(f.left?1:-1)*.5, pts=[], N=22;
+    for(let i=0;i<=N;i++){ const s=i/N, aa=a+bend*s*s; pts.push([x0+Math.cos(aa)*L*s, y0+Math.sin(aa)*L*s, aa]); }
+    const base=Math.round(20+f.shade*16);
+    fx.strokeStyle=`rgba(${base+10},${base+40},${base+22},.9)`; fx.lineWidth=1.4; fx.beginPath(); pts.forEach((p,i)=>i?fx.lineTo(p[0],p[1]):fx.moveTo(p[0],p[1])); fx.stroke();
+    for(let i=2;i<N;i++){ const [px,py,aa]=pts[i], s=i/N, len=L*.16*Math.sin(Math.PI*s)+4;
+      for(const side of [-1,1]){ const la=aa+side*(1.1-s*.3)+Math.sin(tt/60+f.ph+i)*.04;
+        fx.save(); fx.translate(px,py); fx.rotate(la); fx.beginPath(); fx.moveTo(0,0); fx.quadraticCurveTo(len*.5,-len*.22,len,0); fx.quadraticCurveTo(len*.5,len*.22,0,0);
+        fx.fillStyle=`rgba(${base},${base+34+Math.round(s*20)},${base+18},${.85-s*.25})`; fx.fill(); fx.restore(); } }
+  }
+  let ft=0;
+  function fdraw(){ ft++; fx.clearRect(0,0,FW,FH); fronds.forEach(f=>drawFrond(f,ft)); requestAnimationFrame(fdraw); }
+  if (!reduce) requestAnimationFrame(fdraw); else fronds.forEach(f=>drawFrond(f,0));
+
+  /* carrosséis no celular */
+  const mq = matchMedia('(max-width:820px)');
+  document.querySelectorAll('[data-carousel]').forEach((tr, ti) => {
+    const figs = [...tr.querySelectorAll('figure')];
+    const ctl = document.createElement('div'); ctl.className = 'car-ctl';
+    ctl.innerHTML = `<button class="car-btn" type="button" aria-label="Foto anterior">‹</button><div class="car-dots">${figs.map((_,i)=>`<button class="car-dot" type="button" aria-label="Foto ${i+1}"></button>`).join('')}</div><span class="car-count"></span><button class="car-btn" type="button" aria-label="Próxima foto">›</button>`;
+    tr.after(ctl);
+    const dots = [...ctl.querySelectorAll('.car-dot')], [prev, next] = ctl.querySelectorAll('.car-btn'), count = ctl.querySelector('.car-count');
+    let idx = -1, visible = false, pausedUntil = 0;
+    const go = i => { i = (i + figs.length) % figs.length; const f = figs[i];
+      tr.scrollTo({ left: f.offsetLeft - (tr.clientWidth - f.offsetWidth) / 2, behavior: reduce ? 'auto' : 'smooth' }); };
+    function update(){
+      if (!mq.matches) return;
+      const c = tr.scrollLeft + tr.clientWidth / 2; let best = 0, bd = 1e9;
+      figs.forEach((f,i) => { const d = Math.abs(f.offsetLeft + f.offsetWidth/2 - c); if (d < bd) { bd = d; best = i; } });
+      if (best === idx) return; idx = best;
+      figs.forEach((f,i) => { f.classList.toggle('is-active', i===idx); f.classList.toggle('before', i<idx); f.classList.toggle('after', i>idx); });
+      dots.forEach(d => d.setAttribute('aria-current','false')); void ctl.offsetWidth; dots[idx].setAttribute('aria-current','true');
+      count.textContent = `${idx+1} / ${figs.length}`;
+    }
+    let raf = 0; tr.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(update); }, {passive:true});
+    function pause(){ pausedUntil = Date.now() + 7000; ctl.classList.add('paused'); }
+    prev.onclick = () => { pause(); go(idx-1); }; next.onclick = () => { pause(); go(idx+1); };
+    dots.forEach((d,i) => d.onclick = () => { pause(); go(i); });
+    tr.addEventListener('pointerdown', pause, {passive:true}); tr.addEventListener('touchstart', pause, {passive:true});
+    new IntersectionObserver(es => { visible = es[0].isIntersecting; }, {threshold:.5}).observe(tr);
+    setInterval(() => {
+      if (!mq.matches || !visible || reduce || Date.now() < pausedUntil) return;
+      ctl.classList.remove('paused'); go(idx+1);
+    }, 4500 + ti*120);
+    function init(){ idx = -1; if (mq.matches) { tr.scrollLeft = 0; update(); } else figs.forEach(f => f.classList.remove('is-active','before','after')); }
+    mq.addEventListener('change', init); addEventListener('load', init); init();
+  });
+
+  /* chuva de brilhos quando chega no "Feliz aniversário" */
+  const bd = document.getElementById('bday'); let fired = false;
+  new IntersectionObserver(es => {
+    if (!es[0].isIntersecting || fired || reduce) return; fired = true;
+    const h = bd.querySelector('h2').getBoundingClientRect();
+    burst(h.left + h.width*.25, h.top + h.height/2, 90);
+    setTimeout(() => { const r = bd.querySelector('h2').getBoundingClientRect(); burst(r.left + r.width*.75, r.top + r.height/2, 90); }, 450);
+    setTimeout(() => { const r = bd.querySelector('h2').getBoundingClientRect(); burst(r.left + r.width*.5, r.top, 120); }, 900);
+  }, {threshold:.45}).observe(bd);
+})();
+</script>
+
+</body>
+</html>
